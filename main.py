@@ -1,7 +1,5 @@
 import random
-import time
 import os
-from traceback import print_tb
 
 
 class Gra:
@@ -37,27 +35,9 @@ def ruch_do_gory(plansza):
         # plansza[i] = plansza[i + 1]
     return plansza
 
-# clear_console()
 # plansza = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-# plansza = [[2, 0, 0, 0], [2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+plansza = [[0, 0, 0, 0], [2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
-x = Gra()
-print(x.possible_move())
-
-
-# plansza = ruch_do_gory(plansza)
-# print()
-
-# print_plansza(plansza)
-
-# rozmiar = 4
-# tablica = []
-# print(tablica)
-# for i in range(rozmiar):
-#     tablica.append([])
-#     for j in range(rozmiar):
-#         tablica[i].append(0)
-# print(tablica)
 """
 for i in range(100):
     x = random.randint(0, 3)
@@ -67,27 +47,5 @@ for i in range(100):
         continue
     elif all(y == [2, 2, 2, 2] for y in plansza):
         break
-
-    plansza[y][x] = 2
-    print_plansza(plansza)
-    ruch = input()
-    match ruch:
-        case "w":
-            # ruch do gory
-            for i in range(len(plansza) - 1):
-                plansza[i] = plansza[i + 1]
-        case "s":
-            pass
-        case "a":
-            pass
-        case "d":
-            pass
-        case __:
-            pass
-
-    # time.sleep(1)
-    # clear_console()
-
-print_plansza(plansza)
 """
 
