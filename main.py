@@ -18,6 +18,7 @@ class Gra:
             print()
 
     def possible_move(self):
+        # TODO there are possible moves even if all fields contains value so this condition is not enough
         """
         Func to check if any move is possible
         :return: True if any field equals 0, False otherwise
