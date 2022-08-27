@@ -1,18 +1,18 @@
-import random
+# import random
 import os
 
 
 class Gra:
-    plansza = []
+    board = []
 
-    def __init__(self, rozmiar=4):
-        for row in range(rozmiar):
-            self.plansza.append([])
-            for column in range(rozmiar):
-                self.plansza[row].append(0)
+    def __init__(self, size=4):
+        for row in range(size):
+            self.board.append([])
+            for column in range(size):
+                self.board[row].append(0)
 
-    def print_plansza(self):
-        for row in self.plansza:
+    def print_board(self):
+        for row in self.board:
             for column in row:
                 print(column, end=" ")
             print()
@@ -23,21 +23,41 @@ class Gra:
         Func to check if any move is possible
         :return: True if any field equals 0, False otherwise
         """
-        return any(0 in el for el in self.plansza)
+        return any(0 in el for el in self.board)
+
 
 def clear_console():
     os.system("cls")
 
-def ruch_do_gory(plansza):
-    for i in range(len(plansza) - 1):
-        for j in range(len(plansza[i])):
-            if plansza[i + 1][j] != 0:
-                plansza[i][j] = plansza[i + 1][j]
-        # plansza[i] = plansza[i + 1]
-    return plansza
+
+def print_board(board):
+    for row in board:
+        for column in row:
+            print(column, end=" ")
+        print()
+
+
+def move_up(board):
+    for i, row in enumerate(board):
+        dest_row = 0
+        for j, el in enumerate(row):
+            for k in range(i, -1, -1):
+                if board[k][j] == 0:
+                    dest_row = k
+        print(dest_row)
+    return board
+
 
 # plansza = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-plansza = [[0, 0, 0, 0], [2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+board = [[1, 2, 3, 4],
+         [0, 5, 0, 8],
+         [0, 0, 6, 10],
+         [0, 0, 0, 7]]
+
+
+print_board(board)
+move_up(board)
+
 
 """
 for i in range(100):
