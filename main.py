@@ -39,26 +39,45 @@ def print_board(board):
 
 def move_up(board):
     for i, row in enumerate(board):
+        if i == 0:
+            continue
         dest_row = 0
         for j, el in enumerate(row):
             for k in range(i, -1, -1):
                 if board[k][j] == 0:
                     dest_row = k
-        print(dest_row)
+        print(dest_row, end=" ")
     return board
 
 
 # plansza = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 board = [[1, 2, 3, 4],
          [0, 5, 0, 8],
-         [0, 0, 6, 10],
+         [11, 0, 6, 10],
          [0, 0, 0, 7]]
 
 
-print_board(board)
-move_up(board)
+# print_board(board)
+# print()
+# move_up(board)
 
+tablica = [0, 2, 0, 2]
 
+# ruch w lewo
+print(f"input:  {tablica}")
+
+for i, el in enumerate(tablica):
+    dest = i
+    if i == 0:
+        continue
+    for j in range(i, -1, -1):
+        if tablica[j] == 0:
+            dest = j
+    tablica[dest] = el
+    if dest != i:
+        tablica[i] = 0
+
+print(f"output: {tablica}")
 """
 for i in range(100):
     x = random.randint(0, 3)
