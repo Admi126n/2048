@@ -61,11 +61,10 @@ board = [[1, 2, 3, 4],
 # print()
 # move_up(board)
 
-tablica = [0, 2, 0, 2]
-
+tablica = [2, 2, 4, 4]
 # ruch w lewo
 print(f"input:  {tablica}")
-
+dodano = False
 for i, el in enumerate(tablica):
     dest = i
     if i == 0:
@@ -77,15 +76,12 @@ for i, el in enumerate(tablica):
     if dest != i:
         tablica[i] = 0
 
-print(f"output: {tablica}")
-"""
-for i in range(100):
-    x = random.randint(0, 3)
-    y = random.randint(0, 3)
-
-    if plansza[y][x] != 0:
+    if dodano:
+        dodano = False
         continue
-    elif all(y == [2, 2, 2, 2] for y in plansza):
-        break
-"""
+    if tablica[dest - 1] == tablica[dest]:
+        tablica[dest - 1] *= 2
+        tablica[dest] = 0
+        dodano = True
 
+print(f"output: {tablica}")
