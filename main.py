@@ -6,6 +6,7 @@ import os
 class Gra:
     possible_el = [2, 4]
     el_probability = [0.9, 0.1]
+    score = 0
     board = []
     size = 0
 
@@ -39,6 +40,9 @@ class Gra:
             if self.board[y_coordinate][x_coordinate] == 0:
                 self.board[y_coordinate][x_coordinate] = el
                 break
+
+    def get_actual_score(self):
+        self.score = max(max(el) for el in self.board)
 
     def move_left(self):
         dodano = False
