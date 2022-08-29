@@ -95,7 +95,7 @@ board = [[1, 2, 3, 4],
          [0, 5, 0, 8],
          [11, 0, 6, 10],
          [0, 0, 0, 7]]
-
+"""
 def ruch_w_lewo(tablica):
     dodano = False
     for i, el in enumerate(tablica):
@@ -120,9 +120,17 @@ def ruch_w_lewo(tablica):
 tablica = [2, 2, 2, 2]
 # ruch w lewo
 print(f"input:   {tablica}")
+tablica.reverse()
 ruch_w_lewo(tablica)
+tablica.reverse()
 print(f"output:  {tablica}")
+
+# ruch w prawo
+# instead of making another func to move right we can reverse array, use move left func and reverse array once again
+tablica.reverse()
 ruch_w_lewo(tablica)
+tablica.reverse()
+
 print(f"output2: {tablica}")
 """
 x = Gra()
@@ -133,3 +141,4 @@ x.print_board()
 x.move_left()
 print()
 x.print_board()
+"""
