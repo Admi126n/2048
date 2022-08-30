@@ -6,7 +6,7 @@ def move_horizontal(row):
     added = False
     for i, el in enumerate(row):
         dest = i
-        if i == 0:
+        if el == 0 or i == 0:
             continue
         for j in range(i, -1, -1):
             if row[j] == 0:
@@ -16,6 +16,8 @@ def move_horizontal(row):
             row[i] = 0
         if added:
             added = False
+            continue
+        if dest == 0:
             continue
         if row[dest - 1] == row[dest]:
             row[dest - 1] *= 2
@@ -66,7 +68,6 @@ class Game2048:
         self.score = max(max(el) for el in self.board)
 
     def move_right(self):
-        # TODO same as in move_left func
         for k, row in enumerate(self.board):
             row.reverse()
             move_horizontal(row)
@@ -74,7 +75,6 @@ class Game2048:
             self.board[k] = row
 
     def move_left(self):
-        # TODO something doesnt work, eg. 0222 returns 2400 instead of 4200, it doesnt work with bigger boards
         for k, row in enumerate(self.board):
             move_horizontal(row)
             self.board[k] = row
@@ -82,10 +82,3 @@ class Game2048:
 
 def clear_console():
     os.system("cls")
-
-
-def print_board(board):
-    for row in board:
-        for column in row:
-            print(column, end=" ")
-        print()
