@@ -26,6 +26,10 @@ def move_horizontal(row):
     return row
 
 
+def move_vertical():
+    pass
+
+
 class Game2048:
     possible_el = [2, 4]
     el_probability = [0.9, 0.1]
@@ -78,6 +82,12 @@ class Game2048:
         for k, row in enumerate(self.board):
             move_horizontal(row)
             self.board[k] = row
+
+    def move_up(self):
+        pass
+
+    def move_down(self):
+        pass
 
 
 def clear_console():
