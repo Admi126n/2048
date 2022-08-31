@@ -95,6 +95,7 @@ def clear_console():
 
 
 def move_vertical(tab):
+    dodano = [False, False]  # TODO how to dont hardcode this array
     for i, row in enumerate(tab):
         if i == 0:
             continue
@@ -108,11 +109,15 @@ def move_vertical(tab):
             if dest != i:
                 tab[dest][j] = el
                 tab[i][j] = 0
-            # if dest == 0:
-            #     continue
-            # if tab[dest - 1][j] == tab[dest][j]:
-            #     tab[dest - 1][j] *= 2
-            #     tab[dest][j] = 0
+            if dodano[j]:
+                dodano[j] = False
+                continue
+            if dest == 0:
+                continue
+            if tab[dest - 1][j] == tab[dest][j]:
+                tab[dest - 1][j] *= 2
+                tab[dest][j] = 0
+                dodano[j] = True
 
 
 def print_tab(tab):
@@ -122,7 +127,7 @@ def print_tab(tab):
 
 # test = [[1, 2], [3, 4], [5, 6], [7, 8]]
 test = [[0, 1], [2, 3], [4, 0], [0, 5]]
-game_board = [[2, 2], [2, 2], [4, 0], [2, 2]]
+game_board = [[2, 2], [2, 2], [4, 4], [4, 2]]
 
 # print_tab(test)
 # move_vertical(test)
