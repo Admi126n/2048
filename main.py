@@ -3,6 +3,7 @@ import os
 
 
 def move_horizontal(row):
+    # TODO make @staticmethod
     added = False
     for i, el in enumerate(row):
         dest = i
@@ -46,6 +47,7 @@ class Game2048:
 
     def print_board(self):
         # TODO add formatting to print board pretty good even if there are longer numbers
+        # TODO add colors to the output
         for row in self.board:
             for column in row:
                 print(column, end=" ")
@@ -61,7 +63,7 @@ class Game2048:
 
     def add_element(self):
         el = random.choices(self.possible_el, self.el_probability)[0]
-        while True and self.possible_move():
+        while self.possible_move():
             y_coordinate = random.randint(0, self.size - 1)
             x_coordinate = random.randint(0, self.size - 1)
             if self.board[y_coordinate][x_coordinate] == 0:
