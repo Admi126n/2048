@@ -26,8 +26,8 @@ def move_horizontal(row):
     return row
 
 
-def move_vertical():
-    pass
+# def move_vertical():
+#     pass
 
 
 class Game2048:
@@ -92,3 +92,46 @@ class Game2048:
 
 def clear_console():
     os.system("cls")
+
+
+def move_vertical(tab):
+    for i, row in enumerate(tab):
+        if i == 0:
+            continue
+        for j, el in enumerate(row):
+            dest = i
+            if el == 0:
+                continue
+            for k in range(i, -1, -1):
+                if tab[k][j] == 0:
+                    dest = k
+            if dest != i:
+                tab[dest][j] = el
+                tab[i][j] = 0
+            # if dest == 0:
+            #     continue
+            # if tab[dest - 1][j] == tab[dest][j]:
+            #     tab[dest - 1][j] *= 2
+            #     tab[dest][j] = 0
+
+
+def print_tab(tab):
+    for row in tab:
+        print(row)
+
+
+# test = [[1, 2], [3, 4], [5, 6], [7, 8]]
+test = [[0, 1], [2, 3], [4, 0], [0, 5]]
+game_board = [[2, 2], [2, 2], [4, 0], [2, 2]]
+
+# print_tab(test)
+# move_vertical(test)
+# print()
+# print_tab(test)
+
+# print()
+
+print_tab(game_board)
+move_vertical(game_board)
+print()
+print_tab(game_board)
