@@ -26,8 +26,8 @@ def move_horizontal(row):
     return row
 
 
-# def move_vertical():
-#     pass
+def clear_console():
+    os.system("cls")
 
 
 class Game2048:
@@ -71,6 +71,36 @@ class Game2048:
     def get_actual_score(self):
         self.score = max(max(el) for el in self.board)
 
+    def move_up(self):
+        added = [False for i in range(self.size)]
+        for i, row in enumerate(self.board):
+            if i == 0:
+                continue
+            for j, el in enumerate(row):
+                dest = i
+                if el == 0:
+                    continue
+                for k in range(i, -1, -1):
+                    if self.board[k][j] == 0:
+                        dest = k
+                if dest != i:
+                    self.board[dest][j] = el
+                    self.board[i][j] = 0
+                if added[j]:
+                    added[j] = False
+                    continue
+                if dest == 0:
+                    continue
+                if self.board[dest - 1][j] == self.board[dest][j]:
+                    self.board[dest - 1][j] *= 2
+                    self.board[dest][j] = 0
+                    added[j] = True
+
+    def move_down(self):
+        self.board.reverse()
+        self.move_up()
+        self.board.reverse()
+
     def move_right(self):
         for k, row in enumerate(self.board):
             row.reverse()
@@ -82,61 +112,3 @@ class Game2048:
         for k, row in enumerate(self.board):
             move_horizontal(row)
             self.board[k] = row
-
-    def move_up(self):
-        pass
-
-    def move_down(self):
-        pass
-
-
-def clear_console():
-    os.system("cls")
-
-
-def move_vertical(tab):
-    dodano = [False, False]  # TODO how to dont hardcode this array
-    for i, row in enumerate(tab):
-        if i == 0:
-            continue
-        for j, el in enumerate(row):
-            dest = i
-            if el == 0:
-                continue
-            for k in range(i, -1, -1):
-                if tab[k][j] == 0:
-                    dest = k
-            if dest != i:
-                tab[dest][j] = el
-                tab[i][j] = 0
-            if dodano[j]:
-                dodano[j] = False
-                continue
-            if dest == 0:
-                continue
-            if tab[dest - 1][j] == tab[dest][j]:
-                tab[dest - 1][j] *= 2
-                tab[dest][j] = 0
-                dodano[j] = True
-
-
-def print_tab(tab):
-    for row in tab:
-        print(row)
-
-
-# test = [[1, 2], [3, 4], [5, 6], [7, 8]]
-test = [[0, 1], [2, 3], [4, 0], [0, 5]]
-game_board = [[2, 2], [2, 2], [4, 4], [4, 2]]
-
-# print_tab(test)
-# move_vertical(test)
-# print()
-# print_tab(test)
-
-# print()
-
-print_tab(game_board)
-move_vertical(game_board)
-print()
-print_tab(game_board)
