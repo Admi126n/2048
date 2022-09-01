@@ -48,13 +48,11 @@ class Game2048:
             self.add_element()
 
     def print_board(self):
-        # TODO add formatting to print board pretty good even if there are longer numbers
         # TODO add colors to the output
         clear_console()
+        col_width = max(len(str(el)) for row in self.board for el in row) + 1
         for row in self.board:
-            for column in row:
-                print(column, end=" ")
-            print()
+            print("".join(str(el).ljust(col_width) for el in row))
         print()
 
     def possible_move(self):
