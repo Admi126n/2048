@@ -38,16 +38,19 @@ class Game2048:
     board = []
     size = 0
 
-    def __init__(self, size=4):
-        self.size = size
-        for row in range(size):
+    def __init__(self):
+        self.read_size()
+        for row in range(self.size):
             self.board.append([])
-            for column in range(size):
+            for column in range(self.size):
                 self.board[row].append(0)
+        for i in range(2):
+            self.add_element()
 
     def print_board(self):
         # TODO add formatting to print board pretty good even if there are longer numbers
         # TODO add colors to the output
+        clear_console()
         for row in self.board:
             for column in row:
                 print(column, end=" ")
@@ -74,6 +77,21 @@ class Game2048:
     def get_actual_score(self):
         self.score = max(max(el) for el in self.board)
 
+    def read_size(self):
+        while True:
+            temp = input("Type board size: ")
+            try:
+                temp = int(temp)
+                if temp < 2 or temp > 10:
+                    clear_console()
+                    print("Type number between 2 and 10!")
+                else:
+                    self.size = temp
+                    return
+            except ValueError:
+                clear_console()
+                print("This is not a number!")
+
     def make_move(self):
         while True:
             move = input()
@@ -89,9 +107,9 @@ class Game2048:
                 case "ex":
                     break
                 case __:
+                    self.print_board()
                     continue
             self.add_element()
-            # clear_console()
             self.print_board()
 
     def move_up(self):
@@ -137,9 +155,10 @@ class Game2048:
             self.board[k] = row
 
 
+clear_console()
 test = Game2048()
-for x in range(4):
-    test.add_element()
+# for x in range(4):
+#     test.add_element()
 
 test.print_board()
 
