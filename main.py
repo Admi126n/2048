@@ -52,6 +52,7 @@ class Game2048:
             for column in row:
                 print(column, end=" ")
             print()
+        print()
 
     def possible_move(self):
         # TODO there are possible moves even if all fields contains value so this condition is not enough
@@ -72,6 +73,31 @@ class Game2048:
 
     def get_actual_score(self):
         self.score = max(max(el) for el in self.board)
+
+    def get_input(self):
+        while True:
+            move = input()
+            match move:
+                case "w":
+                    self.move_up()
+                    clear_console()
+                    self.print_board()
+                case "s":
+                    self.move_down()
+                    clear_console()
+                    self.print_board()
+                case "a":
+                    self.move_left()
+                    clear_console()
+                    self.print_board()
+                case "d":
+                    self.move_right()
+                    clear_console()
+                    self.print_board()
+                case "ex":
+                    break
+                case __:
+                    pass
 
     def move_up(self):
         added = [False for i in range(self.size)]
@@ -97,11 +123,13 @@ class Game2048:
                     self.board[dest - 1][j] *= 2
                     self.board[dest][j] = 0
                     added[j] = True
+        self.add_element()
 
     def move_down(self):
         self.board.reverse()
         self.move_up()
         self.board.reverse()
+        self.add_element()
 
     def move_right(self):
         for k, row in enumerate(self.board):
@@ -109,8 +137,27 @@ class Game2048:
             move_horizontal(row)
             row.reverse()
             self.board[k] = row
+        self.add_element()
 
     def move_left(self):
         for k, row in enumerate(self.board):
             move_horizontal(row)
             self.board[k] = row
+        self.add_element()
+
+
+test = Game2048()
+for x in range(4):
+    test.add_element()
+
+test.print_board()
+# print("dupa")
+# clear_console()
+# os.system("cls")
+
+test.get_input()
+
+
+
+
+
