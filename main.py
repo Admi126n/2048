@@ -94,6 +94,7 @@ class Game2048:
 
     def make_move(self):
         while True:
+            self.print_board()
             move = input()
             match move:
                 case "w":
@@ -110,7 +111,6 @@ class Game2048:
                     self.print_board()
                     continue
             self.add_element()
-            self.print_board()
 
     def move_up(self):
         added = [False for i in range(self.size)]
@@ -155,11 +155,8 @@ class Game2048:
             self.board[k] = row
 
 
-clear_console()
-test = Game2048()
-# for x in range(4):
-#     test.add_element()
-
-test.print_board()
-
-test.make_move()
+if __name__ == "__main__":
+    clear_console()
+    game = Game2048()
+    game.print_board()
+    game.make_move()
