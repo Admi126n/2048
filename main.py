@@ -49,6 +49,7 @@ class Game2048:
 
     def print_board(self):
         # TODO add colors to the output
+        # print("\033[<x>;38;2;<r>;<g>;<b>;48;2;<r>;<g>;<b>m" + text) where x is font effect
         clear_console()
         col_width = max(len(str(el)) for row in self.board for el in row) + 1
         for row in self.board:
