@@ -31,6 +31,10 @@ def clear_console():
     os.system("cls")
 
 
+class Colors:
+    pass
+
+
 class Game2048:
     possible_el = [2, 4]
     el_probability = [0.9, 0.1]
@@ -49,12 +53,35 @@ class Game2048:
 
     def print_board(self):
         # TODO add colors to the output
-        # print("\033[<x>;38;2;<r>;<g>;<b>;48;2;<r>;<g>;<b>m" + text) where x is font effect
         clear_console()
         col_width = max(len(str(el)) for row in self.board for el in row) + 1
         for row in self.board:
-            print("".join(str(el).ljust(col_width) for el in row))
+            output = ""
+            for el in row:
+                output += self.return_color(el)
+                output += str(el).ljust(col_width)
+                output += "\033[0m"
+            print(output)
         print()
+
+    @staticmethod
+    def return_color(el):
+        """
+        match el:
+            case 2:
+                return "\033[2;38;2;0;255;0m"
+            case 4:
+                return "\033[2;38;2;255;0;0m"
+            case 8:
+                return "\033[2;38;2;0;0;255m"
+            case __:
+                return ""
+        """
+        if el == 2:
+            return f"\033[2;38;2;238;228;218m"
+        elif el == 4:
+            return f"\033[2;38;2;237;224;200m"
+        return ""
 
     def possible_move(self):
         # TODO there are possible moves even if all fields contains value so this condition is not enough
@@ -157,5 +184,4 @@ class Game2048:
 if __name__ == "__main__":
     clear_console()
     game = Game2048()
-    game.print_board()
     game.make_move()
