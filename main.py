@@ -32,6 +32,7 @@ def clear_console():
 
 
 class Colors:
+    # needed 11 colors
     pass
 
 
@@ -59,28 +60,25 @@ class Game2048:
             output = ""
             for el in row:
                 output += self.return_color(el)
-                output += str(el).ljust(col_width)
+                output += str(el).replace("0", "_").ljust(col_width)
                 output += "\033[0m"
             print(output)
         print()
 
     @staticmethod
     def return_color(el):
-        """
-        match el:
-            case 2:
-                return "\033[2;38;2;0;255;0m"
-            case 4:
-                return "\033[2;38;2;255;0;0m"
-            case 8:
-                return "\033[2;38;2;0;0;255m"
-            case __:
-                return ""
-        """
         if el == 2:
-            return f"\033[2;38;2;238;228;218m"
+            return f"\033[2;38;2;128;255;219m"
         elif el == 4:
-            return f"\033[2;38;2;237;224;200m"
+            return f"\033[2;38;2;114;239;221m"
+        elif el == 8:
+            return f"\033[2;38;2;100;223;223m"
+        elif el == 16:
+            return f"\033[2;38;2;86;207;225m"
+        elif el == 32:
+            return f"\033[2;38;2;72;191;227m"
+        elif el == 64:
+            return f"\033[2;38;2;78;168;222m"
         return ""
 
     def possible_move(self):
