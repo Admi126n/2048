@@ -72,21 +72,27 @@ class Game2048:
         for row in self.board:
             output = ""
             for el in row:
-                output += self.return_color(el)
-                # TODO replace 0 in another way, for example 2048 will be printed as 2_48
-                output += str(el).replace("0", "_").ljust(col_width)
-                output += colors_codes.get("END")
+                if el == 0:
+                    output += "_".ljust(col_width)
+                else:
+                    output += self.return_color(el, col_width)
             print(output)
         print()
 
     @staticmethod
-    def return_color(el):
-        if el == 0:
-            return ""
-        elif el <= 2028:
-            return colors_codes.get(str(el))
+    def return_color(el, col_width):
+        # TODO add docs
+        """
+
+        :param el:
+        :param col_width:
+        :return:
+        """
+        if el <= 2028:
+            output = colors_codes.get(str(el))
         else:
-            return colors_codes.get("ABOVE")
+            output = colors_codes.get("ABOVE")
+        return output + str(el).ljust(col_width) + colors_codes.get("END")
 
     def empty_fields(self):
         """
