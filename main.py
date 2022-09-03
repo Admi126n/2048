@@ -1,5 +1,6 @@
 import random
 import os
+import copy
 
 
 def move_horizontal(row):
@@ -149,6 +150,7 @@ class Game2048:
 
     def make_move(self):
         while self.possible_move():
+            board_copy = copy.deepcopy(self.board)
             self.print_board()
             move = input()
             match move:
@@ -167,7 +169,8 @@ class Game2048:
                 case __:
                     self.print_board()
                     continue
-            self.add_element()
+            if self.board != board_copy:
+                self.add_element()
         else:
             self.print_board()
             print("Game over!")
