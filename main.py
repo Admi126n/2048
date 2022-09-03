@@ -1,35 +1,20 @@
 import random
 import os
 import copy
-
-
-def move_horizontal(row):
-    # TODO make @staticmethod
-    added = False
-    for i, el in enumerate(row):
-        dest = i
-        if el == 0 or i == 0:
-            continue
-        for j in range(i, -1, -1):
-            if row[j] == 0:
-                dest = j
-        row[dest] = el
-        if dest != i:
-            row[i] = 0
-        if added:
-            added = False
-            continue
-        if dest == 0:
-            continue
-        if row[dest - 1] == row[dest]:
-            row[dest - 1] *= 2
-            row[dest] = 0
-            added = True
-    return row
+import platform
 
 
 def clear_console():
-    os.system("cls")
+    """
+    Clears console
+    :return: None
+    """
+    operating_sys = platform.system()
+    match operating_sys:
+        case "Windows":
+            os.system("cls")
+        case "Linux" | "Darwin":
+            os.system("clear")
 
 
 colors_codes = {
@@ -52,8 +37,8 @@ colors_codes = {
 class Game2048:
     possible_el = [2, 4]
     el_probability = [0.9, 0.1]
-    score = 0
     board = []
+    score = 0
     size = 0
 
     def __init__(self):
@@ -82,12 +67,11 @@ class Game2048:
 
     @staticmethod
     def return_color(el, col_width):
-        # TODO add docs
         """
-
-        :param el:
-        :param col_width:
-        :return:
+        Returns string with element with expected color and column width
+        :param el: (int) element from board
+        :param col_width: (int) expected column width
+        :return: (string)
         """
         if el <= 2028:
             output = colors_codes.get(str(el))
@@ -108,17 +92,21 @@ class Game2048:
         """
         if self.empty_fields():  # check if there are any zeros
             return True
-        for row in self.board:  # check if there is horizontal move
+        for row in self.board:  # check if there is horizontal move possible
             for i in range(self.size - 1):
                 if row[i] == row[i + 1]:
                     return True
-        for i in range(self.size - 1):  # check if there is vertical move
+        for i in range(self.size - 1):  # check if there is vertical move possible
             for j in range(self.size):
                 if self.board[i][j] == self.board[i + 1][j]:
                     return True
         return False
 
     def add_element(self):
+        """
+        Adds element to board if there is any empty field
+        :return: None
+        """
         el = random.choices(self.possible_el, self.el_probability)[0]
         while self.empty_fields():
             y_coordinate = random.randint(0, self.size - 1)
@@ -128,12 +116,20 @@ class Game2048:
                 break
 
     def get_actual_score(self):
+        """
+        Reset score variable and then adds all elements in board
+        :return: None
+        """
         self.score = 0
         for row in self.board:
             for el in row:
                 self.score += el
 
     def read_size(self):
+        """
+        Reads input from user and set size variable
+        :return: None
+        """
         while True:
             temp = input("Type board size: ")
             try:
@@ -205,16 +201,40 @@ class Game2048:
         self.move_up()
         self.board.reverse()
 
+    @staticmethod
+    def move_horizontal(row):
+        added = False
+        for i, el in enumerate(row):
+            dest = i
+            if el == 0 or i == 0:
+                continue
+            for j in range(i, -1, -1):
+                if row[j] == 0:
+                    dest = j
+            row[dest] = el
+            if dest != i:
+                row[i] = 0
+            if added:
+                added = False
+                continue
+            if dest == 0:
+                continue
+            if row[dest - 1] == row[dest]:
+                row[dest - 1] *= 2
+                row[dest] = 0
+                added = True
+        return row
+
     def move_right(self):
         for k, row in enumerate(self.board):
             row.reverse()
-            move_horizontal(row)
+            self.move_horizontal(row)
             row.reverse()
             self.board[k] = row
 
     def move_left(self):
         for k, row in enumerate(self.board):
-            move_horizontal(row)
+            self.move_horizontal(row)
             self.board[k] = row
 
 
