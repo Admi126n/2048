@@ -31,9 +31,21 @@ def clear_console():
     os.system("cls")
 
 
-class Colors:
-    # needed 11 colors
-    pass
+colors_codes = {
+    "2": "\033[91m",
+    "4": "\033[3;91m",
+    "8": "\033[93m",
+    "16": "\033[3;93m",
+    "32": "\033[92m",
+    "64": "\033[3;92m",
+    "128": "\033[96m",
+    "256": "\033[3;96m",
+    "512": "\033[94m",
+    "1024": "\033[3;94m",
+    "2048": "\033[95m",
+    "ABOVE": "\033[3;95m",
+    "END": "\033[0m"
+}
 
 
 class Game2048:
@@ -53,7 +65,6 @@ class Game2048:
             self.add_element()
 
     def print_board(self):
-        # TODO add colors to the output
         clear_console()
         col_width = max(len(str(el)) for row in self.board for el in row) + 1
         for row in self.board:
@@ -61,25 +72,18 @@ class Game2048:
             for el in row:
                 output += self.return_color(el)
                 output += str(el).replace("0", "_").ljust(col_width)
-                output += "\033[0m"
+                output += colors_codes.get("END")
             print(output)
         print()
 
     @staticmethod
     def return_color(el):
-        if el == 2:
-            return f"\033[2;38;2;128;255;219m"
-        elif el == 4:
-            return f"\033[2;38;2;114;239;221m"
-        elif el == 8:
-            return f"\033[2;38;2;100;223;223m"
-        elif el == 16:
-            return f"\033[2;38;2;86;207;225m"
-        elif el == 32:
-            return f"\033[2;38;2;72;191;227m"
-        elif el == 64:
-            return f"\033[2;38;2;78;168;222m"
-        return ""
+        if el == 0:
+            return ""
+        elif el <= 2028:
+            return colors_codes.get(str(el))
+        else:
+            return colors_codes.get("ABOVE")
 
     def possible_move(self):
         # TODO there are possible moves even if all fields contains value so this condition is not enough
