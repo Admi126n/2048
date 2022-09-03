@@ -73,6 +73,7 @@ class Game2048:
             output = ""
             for el in row:
                 output += self.return_color(el)
+                # TODO replace 0 in another way, for example 2048 will be printed as 2_48
                 output += str(el).replace("0", "_").ljust(col_width)
                 output += colors_codes.get("END")
             print(output)
@@ -87,17 +88,32 @@ class Game2048:
         else:
             return colors_codes.get("ABOVE")
 
-    def possible_move(self):
-        # TODO there are possible moves even if all fields contains value so this condition is not enough
+    def empty_fields(self):
         """
-        Func to check if any move is possible
+        Func to check if board have any empty field
         :return: True if any field equals 0, False otherwise
         """
         return any(0 in el for el in self.board)
 
+    def possible_move(self):
+        """
+        :return: True if there is possible move, False otherwise
+        """
+        if self.empty_fields():  # check if there are any zeros
+            return True
+        for row in self.board:  # check if there is horizontal move
+            for i in range(self.size - 1):
+                if row[i] == row[i + 1]:
+                    return True
+        for i in range(self.size - 1):  # check if there is vertical move
+            for j in range(self.size):
+                if self.board[i][j] == self.board[i + 1][j]:
+                    return True
+        return False
+
     def add_element(self):
         el = random.choices(self.possible_el, self.el_probability)[0]
-        while self.possible_move():
+        while self.empty_fields():
             y_coordinate = random.randint(0, self.size - 1)
             x_coordinate = random.randint(0, self.size - 1)
             if self.board[y_coordinate][x_coordinate] == 0:
@@ -106,7 +122,6 @@ class Game2048:
 
     def get_actual_score(self):
         self.score = 0
-        # self.score = max(max(el) for el in self.board)
         for row in self.board:
             for el in row:
                 self.score += el
@@ -127,7 +142,7 @@ class Game2048:
                 print("This is not a number!")
 
     def make_move(self):
-        while True:
+        while self.possible_move():
             self.print_board()
             move = input()
             match move:
@@ -145,6 +160,8 @@ class Game2048:
                     self.print_board()
                     continue
             self.add_element()
+        self.print_board()
+        print("Game over!")
 
     def move_up(self):
         added = [False for i in range(self.size)]
