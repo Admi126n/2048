@@ -155,16 +155,19 @@ class Game2048:
                 case "d":
                     self.move_right()
                 case "ex":
+                    self.print_board()
+                    print("Exit")
                     break
                 case __:
                     self.print_board()
                     continue
             self.add_element()
-        self.print_board()
-        print("Game over!")
+        else:
+            self.print_board()
+            print("Game over!")
 
     def move_up(self):
-        added = [False for i in range(self.size)]
+        added = [False for _ in range(self.size)]
         for i, row in enumerate(self.board):
             if i == 0:
                 continue
