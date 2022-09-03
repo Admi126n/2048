@@ -66,6 +66,8 @@ class Game2048:
 
     def print_board(self):
         clear_console()
+        self.get_actual_score()
+        print(f"Score: {self.score}")
         col_width = max(len(str(el)) for row in self.board for el in row) + 1
         for row in self.board:
             output = ""
@@ -103,7 +105,11 @@ class Game2048:
                 break
 
     def get_actual_score(self):
-        self.score = max(max(el) for el in self.board)
+        self.score = 0
+        # self.score = max(max(el) for el in self.board)
+        for row in self.board:
+            for el in row:
+                self.score += el
 
     def read_size(self):
         while True:
